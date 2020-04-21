@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Indiekost</string>
+    <string name="loginText">LOGIN</string>
+    <string name="emailText">Email</string>
+    <string name="passwordText">Password</string>
+    <string name="welcomeText">Welcome Back!</string>
+    <string name="forgotPasswordText">FORGOT PASSWORD ?</string>
+    <string name="don_t_have_any_accountText">Don\'t Have Any Account?</string>
+    <string name="sign_upText">Sign Up</string>
+</resources>

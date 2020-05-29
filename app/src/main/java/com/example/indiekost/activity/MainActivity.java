@@ -1,22 +1,30 @@
+
 package com.example.indiekost.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.indiekost.HomeFragment;
+import com.example.indiekost.KamarUserFragment;
+import com.example.indiekost.LainnyaUserFragment;
+import com.example.indiekost.PembayaranUserFragment;
 import com.example.indiekost.R;
 import com.example.indiekost.helper.SessionManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textEmail;
-    Button logoutButton;
     SessionManager sessionManager;
+    BottomNavigationView bottomNavigationView;
 
     String email, nama, id, id_akses;
 
@@ -25,36 +33,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bottomNavigationView = findViewById(R.id.bottom_nav_user);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_user, new HomeFragment()).commit();
+
         sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("EMAIL")){
+        if (intent.hasExtra("EMAIL")) {
             email = getIntent().getStringExtra("EMAIL");
             nama = getIntent().getStringExtra("NAMA");
             id = getIntent().getStringExtra("ID");
             id_akses = getIntent().getStringExtra("ID_AKSES");
-        }else{
+        } else {
             email = sessionManager.getEMAIL();
         }
-
-        textEmail = findViewById(R.id.testEmail);
-        textEmail.setText(email);
-
-        logoutButton = findViewById(R.id.logoutBtn);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _logout();
-            }
-        });
     }
 
-    private void _logout(){
-        sessionManager.clearPreferences();
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selected = null;
 
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
-        finish();
-    }
+                    switch (item.getItemId()) {
+                        case R.id.home_user:
+                            selected = new HomeFragment();
+                            break;
+                        case R.id.kamar_user:
+                            selected = new KamarUserFragment();
+                            break;
+                        case R.id.pembayaran_user:
+                            selected = new PembayaranUserFragment();
+                            break;
+                        case R.id.more_user:
+                            selected = new LainnyaUserFragment();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_user, selected).commit();
+
+                    return true;
+                }
+            };
+
 }

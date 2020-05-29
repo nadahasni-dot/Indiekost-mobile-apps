@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_user"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Dashbor" />
+
+    <item
+        android:id="@+id/kamar_user"
+        android:icon="@drawable/ic_hotel_black_24dp"
+        android:title="Kamar" />
+
+    <item
+        android:id="@+id/pembayaran_user"
+        android:icon="@drawable/ic_payment_black_24dp"
+        android:title="Pembayaran" />
+
+    <item
+        android:id="@+id/more_user"
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="Lainnya" />
+
+</menu>

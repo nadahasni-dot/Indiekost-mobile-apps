@@ -1,8 +1,12 @@
 package com.example.indiekost.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.example.indiekost.activity.LoginActivity;
+import com.example.indiekost.activity.MainActivity;
 
 public class SessionManager {
     SharedPreferences sharedPreferences;
@@ -35,9 +39,13 @@ public class SessionManager {
         return sharedPreferences.getBoolean(LOGIN_STATUS, false);
     }
 
-    public void clearPreferences(){
+    public void logout(){
         editor.clear();
         editor.commit();
+
+        Intent login = new Intent(context, LoginActivity.class);
+        context.startActivity(login);
+        ((MainActivity)context).finish();
     }
 
     public String getEMAIL() {

@@ -8,4 +8,7 @@
     <string name="don_t_have_any_accountText">Don\'t Have Any Account?</string>
     <string name="sign_upText">Sign Up</string>
     <string name="indiekost_tittle">indiekost</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -5,9 +5,14 @@
     <string name="passwordText">Password</string>
     <string name="welcomeText">Welcome Back!</string>
     <string name="forgotPasswordText">FORGOT PASSWORD ?</string>
-    <string name="don_t_have_any_accountText">Don\'t Have Any Account?</string>
-    <string name="sign_upText">Sign Up</string>
+    <string name="don_t_have_any_accountText">Belum bergabung sebagai penghuni?</string>
+    <string name="sign_upText">Daftar</string>
     <string name="indiekost_tittle">indiekost</string>
+
+    <array name="jenis_kelamin">
+        <item>Wanita</item>
+        <item>Pria</item>
+    </array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

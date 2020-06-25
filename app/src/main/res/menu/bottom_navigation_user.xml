@@ -4,7 +4,7 @@
     <item
         android:id="@+id/home_user"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Dashbor" />
+        android:title="Home" />
 
     <item
         android:id="@+id/kamar_user"

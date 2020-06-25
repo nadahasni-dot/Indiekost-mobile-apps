@@ -2,15 +2,21 @@ package com.example.indiekost.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.ClientError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -31,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView textSignUp;
     TextView textForgot;
     SessionManager sessionManager;
+    ProgressDialog progressDialog;
 
     private RequestQueue queue;
 
@@ -58,6 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         textSignUp = findViewById(R.id.signUpText);
         textForgot = findViewById(R.id.forgotPasswordText);
 
+//        progress dialog instance
+        progressDialog = new ProgressDialog(this);
+
 //        elemen onClick
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent forgotPass = new Intent(LoginActivity.this, ForgotPassActivity.class);
                 startActivity(forgotPass);
+                finish();
             }
         });
     }
@@ -105,9 +116,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void _loginProcess() {
+        progressDialog.setMessage("Sedang Memproses...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiUrl.AUTH_LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
@@ -140,7 +155,22 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(findViewById(R.id.loginActivity), error.toString(), Snackbar.LENGTH_LONG).show();
+                progressDialog.dismiss();
+                String message = "Terjadi error. Coba beberapa saat lagi.";
+
+                if (error instanceof NetworkError){
+                    message = "Tidak dapat terhubung ke internet. Harap periksa koneksi anda.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Gagal login. Harap periksa email dan password anda.";
+                } else if (error instanceof ClientError) {
+                    message = "Gagal login. Harap periksa email dan password anda.";
+                } else if (error instanceof NoConnectionError){
+                    message = "Tidak ada koneksi internet. Harap periksa koneksi anda.";
+                } else if (error instanceof TimeoutError){
+                    message = "Connection Time Out. Harap periksa koneksi anda.";
+                }
+
+                Snackbar.make(findViewById(R.id.loginActivity), message, Snackbar.LENGTH_LONG).show();
             }
         })
         {
@@ -158,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //    fungsi u/ menjalankan konfirmasi form
     public void confirmInputLogin(View v) {
-        if (validateEmail() | validatePassword()) {
+        if (validateEmail() & validatePassword()) {
             _loginProcess();
         }
     }

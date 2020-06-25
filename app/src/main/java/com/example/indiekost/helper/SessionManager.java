@@ -14,7 +14,7 @@ public class SessionManager {
     public Context context;
 
     public static final String PREF_NAME = "LOGIN";
-    public static final String LOGIN_STATUS = "false";
+    public static final String LOGIN_STATUS = "LOGIN_STATUS";
     public static final String EMAIL = "EMAIL";
     public static final String NAMA_PENGGUNA = "NAMA_PENGGUNA";
     public static final String ID_PENGGUNA = "ID_PENGGUNA";

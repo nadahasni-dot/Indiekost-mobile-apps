@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.MainActivity"
+    android:id="@+id/main_activity">
 
     <FrameLayout
         android:id="@+id/container_user"
@@ -19,6 +20,7 @@
         app:menu="@menu/bottom_navigation_user"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        android:elevation="8dp"/>
+        android:elevation="8dp"
+        app:elevation="8dp"/>
 
 </RelativeLayout>
